@@ -13,6 +13,12 @@ defmodule Handler do
     {:ok, state}
   end
 
+  def handle_info({:tcp, socket, "ECHO " <> rest_data = data}, %{client_id: client_id} = state) do
+    Logger.info("[id: #{client_id}] Received: #{data}")
+    :gen_tcp.send(socket, "#{rest_data}\r\n")
+    {:noreply, state}
+  end
+
   @impl true
   def handle_info({:tcp, socket, data}, %{client_id: client_id} = state) do
     Logger.info("[id: #{client_id}] Received: #{data}")
