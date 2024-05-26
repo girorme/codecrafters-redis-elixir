@@ -5,6 +5,7 @@ defmodule Handler do
 
   use GenServer
   require Logger
+  alias Protocol
 
   @impl true
   def init(initial_state \\ %{socket: nil}) do
